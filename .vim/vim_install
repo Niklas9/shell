@@ -1,0 +1,2 @@
+Don't forget to copy hidden files, and apt-get install vim
+git config --global core.editor vi

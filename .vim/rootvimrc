@@ -1,0 +1,5 @@
+"" stooopid stub for real .vimrc .. I keep everything in .vim/ :-)
+let FILE=expand("~/.vim/.vimrc")
+if filereadable(FILE)
+	exe "source " . FILE
+endif
