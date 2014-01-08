@@ -69,7 +69,6 @@ if ${use_color} ; then
 	alias ls='ls --color=auto'
 	alias ll='ls -lah'	
 	alias grep='grep --colour=auto'
-    alias cat='cat -n'
 else
 
     if [[ ${EUID} == 0 ]] ; then
