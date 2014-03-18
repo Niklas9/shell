@@ -1,4 +1,9 @@
-shell
-=====
+niklas9 shell
+=============
 
-my shell, includes bash and vi configurations so far
+This is my repo for storing my shell settings and configurations, including
+
+  * bash
+  * vi
+  * mongodb
+  * git
