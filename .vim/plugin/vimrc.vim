@@ -9,6 +9,8 @@
 " set helpfile=/home/mcasado/programs/vim-5.7/runtime/doc/help.txt
 set dictionary=/usr/share/dict/words
 
+set number
+
 "============================================================="
 "                    Color                                    "
 "============================================================="
@@ -99,7 +101,7 @@ set nohlsearch
 "       textmode:    no - I am using Vim on UNIX!
   set notextmode
 "       textwidth
-  set   textwidth=72
+  set   textwidth=80
 "       title:
   set notitle
 "       ttyfast:     are we using a fast terminal?
