@@ -24,6 +24,8 @@ shopt -s checkwinsize
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
+source ~/shell/git-prompt.sh
+
 # Change the window title of X terminals 
 case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
@@ -61,9 +63,9 @@ if ${use_color} ; then
 	fi
 
     if [[ ${EUID} == 0 ]] ; then
-        PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W $\[\033[00m\] '
+        PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
     else
-        PS1='\[\033[01;32m\]\h\[\033[01;34m\] \W $\[\033[00m\] '
+        PS1='\[\033[01;32m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
     fi
 
 	alias ls='ls --color=auto'
@@ -73,9 +75,9 @@ else
 
     if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
-		PS1='\u@\h \W \$ '
+		PS1='\u@\h \W$(__git_ps1 " [%s]") \$ '
 	else
-		PS1='\u@\h \w \$ '
+		PS1='\u@\h \w$(__git_ps1 " [%s]") \$ '
 	fi
 fi
 
