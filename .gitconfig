@@ -1,9 +1,9 @@
 [user]
     name = Niklas Andersson
-	email = nandersson900@gmail.com
+    email = nandersson900@gmail.com
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+    diff = auto
+    status = auto
+    branch = auto
 [core]
     editor = vim
