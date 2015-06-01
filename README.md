@@ -8,3 +8,4 @@ This is my repo for storing my shell settings and configurations, including
   * mongodb
   * git
   * screen
+  * s3cmd
