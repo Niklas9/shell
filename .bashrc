@@ -37,6 +37,7 @@ case ${TERM} in
 esac
 
 use_color=false
+current_os=$(uname)
 
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
@@ -51,6 +52,10 @@ match_lhs=""
 	&& type -P dircolors >/dev/null \
 	&& match_lhs=$(dircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+if [ "$current_os" == "Darwin" ]; then
+    use_color=true
+fi
 
 if ${use_color} ; then
 	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
@@ -68,9 +73,13 @@ if ${use_color} ; then
         PS1='\[\033[01;32m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
     fi
 
-	alias ls='ls --color=auto'
-	alias ll='ls -lah'	
-	alias grep='grep --colour=auto'
+    if [ "$current_os" == "Darwin" ]; then
+        alias ls='ls -G'
+    else
+        alias ls='ls --color=auto'
+    fi
+    alias ll='ls -lah'
+    alias grep='grep --colour=auto'
 else
 
     if [[ ${EUID} == 0 ]] ; then
