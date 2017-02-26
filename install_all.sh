@@ -4,7 +4,7 @@ read -p "git, enter email: " GIT_EMAIL
 read -p "git, enter name: " GIT_NAME
 
 cp .bashrc ~/.
-sudo apt-get install vim curl s3cmd -y
+apt-get install vim curl s3cmd -y
 cp -r .vim ~/.
 cp .mongorc.js ~/.
 cat .gitconfig \
