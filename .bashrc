@@ -36,7 +36,6 @@ case ${TERM} in
 		;;
 esac
 
-use_color=false
 current_os=$(uname)
 
 # Set colorful PS1 only on colorful terminals.
@@ -51,47 +50,34 @@ match_lhs=""
 [[ -z ${match_lhs}    ]] \
 	&& type -P dircolors >/dev/null \
 	&& match_lhs=$(dircolors --print-database)
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]]
+
+
+# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+if type -P dircolors >/dev/null ; then
+    if [[ -f ~/.dir_colors ]] ; then
+        eval $(dircolors -b ~/.dir_colors)
+    elif [[ -f /etc/DIR_COLORS ]] ; then
+        eval $(dircolors -b /etc/DIR_COLORS)
+    fi
+fi
+
+if [[ ${EUID} == 0 ]] ; then
+    PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
+else
+    PS1='\[\033[01;32m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
+fi
 
 if [ "$current_os" == "Darwin" ]; then
-    use_color=true
-fi
-
-if ${use_color} ; then
-	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-	if type -P dircolors >/dev/null ; then
-		if [[ -f ~/.dir_colors ]] ; then
-			eval $(dircolors -b ~/.dir_colors)
-		elif [[ -f /etc/DIR_COLORS ]] ; then
-			eval $(dircolors -b /etc/DIR_COLORS)
-		fi
-	fi
-
-    if [[ ${EUID} == 0 ]] ; then
-        PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
-    else
-        PS1='\[\033[01;32m\]\h\[\033[01;34m\] \W$(__git_ps1 " [%s]") $\[\033[00m\] '
-    fi
-
-    if [ "$current_os" == "Darwin" ]; then
-        alias ls='ls -G'
-    else
-        alias ls='ls --color=auto'
-    fi
-    alias ll='ls -lah'
-    alias grep='grep --colour=auto'
+    alias ls='ls -G'
 else
-
-    if [[ ${EUID} == 0 ]] ; then
-		# show root@ when we don't have colors
-		PS1='\u@\h \W$(__git_ps1 " [%s]") \$ '
-	else
-		PS1='\u@\h \w$(__git_ps1 " [%s]") \$ '
-	fi
+    alias ls='ls --color=auto'
 fi
+alias ll='ls -lah'
+alias grep='grep --colour=auto'
 
 # Try to keep environment pollution down, EPA loves us.
-unset use_color safe_term match_lhs
+unset safe_term match_lhs
 
 # set locale
 export LC_ALL=C
