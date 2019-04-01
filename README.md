@@ -15,5 +15,5 @@ though (typically included in any Debian-based Linux distribution).
 Quick install without having to install git:
 
 ```
-curl -L -O https://github.com/Niklas9/shell/archive/master.tar.gz && tar -xf master.tar.gz && cd shell-master && ./install_all.sh && cd .. && rm master.tar.gz
+curl -s -L https://raw.githubusercontent.com/Niklas9/shell/master/install_wo_git.sh | bash
 ```
