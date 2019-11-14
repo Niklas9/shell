@@ -17,3 +17,10 @@ Quick install without having to install git:
 ```
 curl -s -L https://raw.githubusercontent.com/Niklas9/shell/master/install_wo_git.sh | bash
 ```
+
+## Remote SSH-login using pubkey
+To remote login via SSH using pubkey:
+
+```
+ssh-copy-id username@host
+```
